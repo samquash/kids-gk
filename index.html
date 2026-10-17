@@ -47,7 +47,7 @@ var cur="abc",g=document.getElementById("grid"),nav=document.getElementById("nav
 function say(t,l){try{var u=new SpeechSynthesisUtterance(t);u.lang=l;u.rate=.85;u.onerror=function(e){document.getElementById("note").textContent="Voice masla: "+(e.error||"")+" ("+l+")"};var v=speechSynthesis.getVoices().filter(function(x){return x.lang.toLowerCase().replace("_","-").indexOf(l.slice(0,2))==0});if(v.length)u.voice=v[0];speechSynthesis.speak(u)}catch(e){}}
 function both(en,ur){if(!window.speechSynthesis){document.getElementById("note").textContent="Is browser mein awaaz support nahi. Chrome mein kholein.";return}try{speechSynthesis.cancel();speechSynthesis.resume()}catch(e){}setTimeout(function(){if(en)say(en,"en-US");if(ur)say(ur,"ur-PK")},200)}
 function el(h,c){var d=document.createElement("div");d.className=c;d.innerHTML=h;return d}
-function show(k){cur=k;Array.prototype.forEach.call(nav.children,function(b){b.className=b.dataset.k==k?"on":""});g.innerHTML="";g.style.display="grid";
+function show(k){cur=k;g.innerHTML="";g.style.display="grid";g.style.gridTemplateColumns="";nav.style.display=k=="home"?"none":"flex";window.scrollTo(0,0);if(k=="home"){home();return}
  if(k=="nums"){g.style.display="block";nums();return}
  if(k=="quiz"){g.style.display="block";quiz();return}
  
@@ -63,9 +63,10 @@ function quiz(){var w=el('','box');g.appendChild(w);var sc=0,cats=['fruits','ani
  function nq(){var p=D[cats[Math.floor(Math.random()*4)]],a=p[Math.floor(Math.random()*p.length)],o=[a],x;while(o.length<3){x=p[Math.floor(Math.random()*p.length)];if(o.indexOf(x)<0)o.push(x)}o.sort(function(){return Math.random()-.5});
   w.innerHTML='<div class="en">Quiz ⭐ '+sc+'</div><div class="e">'+a.e+'</div><div class="en">What is this?</div><div class="ur">یہ کیا ہے؟</div>';
   o.forEach(function(it){var b=document.createElement('button');b.className='opt';b.innerHTML=it.en+'<div class="ur">'+it.ur+'</div>';b.onclick=function(){if(it===a){sc++;both('Correct! '+a.en,'شاباش! '+a.ur);setTimeout(nq,1800)}else{both('Try again','پھر کوشش کریں')}};w.appendChild(b)})}nq()}
-T.forEach(function(t){var b=document.createElement("button");b.textContent=t[1];b.dataset.k=t[0];b.onclick=function(){show(t[0])};nav.appendChild(b)});
+function home(){var cols={abc:'#e53935',urdu:'#2e7d32',nums:'#1e88e5',fruits:'#f9a825',animals:'#8e24aa',shapes:'#00897b',colors:'#d81b60',quiz:'#3949ab'},ic={abc:'🔤',urdu:'ا',nums:'🔢',fruits:'🍎',animals:'🦁',shapes:'🔷',colors:'🎨',quiz:'🏆'};g.style.gridTemplateColumns='repeat(2,1fr)';T.forEach(function(t){var c=el('<div class="e" style="font-size:54px">'+ic[t[0]]+'</div><div class="en" style="font-size:20px">'+t[1]+'</div>','c');c.style.background=cols[t[0]];c.style.color='#fff';c.style.borderColor='#fff3b0';c.style.padding='20px 4px';c.onclick=function(){show(t[0])};g.appendChild(c)})}
+var hb=document.createElement("button");hb.textContent="🏠 Home";hb.className="on";hb.onclick=function(){show("home")};nav.appendChild(hb);
 document.addEventListener("contextmenu",function(e){e.preventDefault()});
 try{speechSynthesis.getVoices()}catch(e){}
-show("abc");
+show("home");
 </script><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}</script>
 </body></html>
