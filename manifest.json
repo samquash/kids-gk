@@ -1,0 +1,15 @@
+{
+  "name": "Kids GK",
+  "short_name": "Kids GK",
+  "description": "ABC, Urdu, Math, Fruits, Animals, Shapes, Colors with English and Urdu voice",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff8e7",
+  "theme_color": "#ff7a45",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
